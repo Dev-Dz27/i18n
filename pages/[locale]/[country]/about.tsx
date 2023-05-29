@@ -2,18 +2,21 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 import { Layout } from '@vercel/examples-ui'
 import { Dictionary } from '../../../lib/types'
 import api from '../../../lib/api'
+import type { ParsedUrlQuery } from 'querystring'
 
-interface Params {
-  locale: string
-  country: string
-}
+
+  interface Params extends ParsedUrlQuery {
+    locale: string
+    country: string
+  }
+
 
 interface Props {
   locale: string
   dictionary: Dictionary
 }
 
-export const getStaticPaths: GetStaticPaths<Params> = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: [],
@@ -21,7 +24,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<Props, Params> = async ({
+export const getStaticProps: GetStaticProps<unknown, Params> = async ({
   params: { locale },
 }) => {
   const dictionary = await api.dictionaries.fetch(locale);

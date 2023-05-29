@@ -24,6 +24,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
+
 export const getStaticProps: GetStaticProps<unknown, Params> = async ({
   params: { country, locale },
 }) => {
